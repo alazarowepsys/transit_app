@@ -1,6 +1,4 @@
-import 'package:transit_app/models/base_model.dart';
-
-class Fine implements BaseModel {
+class Fine {
   final String tagCode;
   final String brand;
   final String model;
@@ -31,7 +29,6 @@ class Fine implements BaseModel {
     required this.audioRecordPath,
   });
 
-  @override
   Map<String, dynamic> toMap() {
     return {
       'tag_code': tagCode,

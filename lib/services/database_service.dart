@@ -3,12 +3,14 @@ import 'package:sqflite/sqflite.dart';
 import 'package:transit_app/models/fine.dart';
 
 class DatabaseService {
-  static final DatabaseService _instance = DatabaseService();
+  static final DatabaseService _instance = DatabaseService._internal();
   Database? _database;
 
   factory DatabaseService() {
     return _instance;
   }
+
+  DatabaseService._internal();
 
   Future<Database> get database async {
     if (_database != null) {
