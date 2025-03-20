@@ -15,7 +15,7 @@ class FinesScreen extends StatelessWidget {
         return AlertDialog(
           title: Text("Eliminar multas"),
           content: Text(
-            "¿Estás seguro de que deseas eliminar todas las multas? Debes realizar esta accion justo al finalizar tu jornada laboral.",
+            "¿Estás seguro de que deseas eliminar todas las multas? Debes realizar esta acción justo al finalizar tu jornada laboral.",
           ),
           actions: [
             TextButton(
