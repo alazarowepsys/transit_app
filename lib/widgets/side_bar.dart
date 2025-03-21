@@ -13,7 +13,7 @@ class SideBar extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           SizedBox(
-            height: 235,
+            height: 270,
             child: DrawerHeader(
               padding: EdgeInsets.only(top: 15),
               decoration: BoxDecoration(
