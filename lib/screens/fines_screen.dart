@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:transit_app/routes.dart';
+import 'package:transit_app/screens/fine_details_screen.dart';
 import 'package:transit_app/services/database_service.dart';
 import 'package:transit_app/widgets/side_bar.dart';
 import 'package:transit_app/widgets/top_bar.dart';
@@ -23,7 +25,11 @@ class FinesScreen extends StatelessWidget {
               child: Text("Cancelar"),
             ),
             TextButton(
-              onPressed: () => Navigator.pop(context),
+              onPressed: () async {
+                await _databaseService.deleteAllFines();
+                // ignore: use_build_context_synchronously
+                Navigator.of(context).pushReplacementNamed(kFinesRoute);
+              },
               child: Text("Eliminar"),
             ),
           ],
@@ -86,21 +92,43 @@ class FinesScreen extends StatelessWidget {
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
                 final fine = snapshot.data![index];
-                return ListTile(
-                  title: Text(
-                    "Matrícula: ${fine.licensePlate}",
-                    style: GoogleFonts.gabarito(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 20,
-                    ),
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 10,
                   ),
-                  subtitle: Text(
-                    "Tipo de infracción: ${fine.violationType}",
-                    style: GoogleFonts.gabarito(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 20,
+                  child: Card(
+                    color: Theme.of(context).colorScheme.primary.withAlpha(200),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: ListTile(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return FineDetailsScreen(fine);
+                            },
+                          ),
+                        );
+                      },
+                      tileColor: Colors.transparent,
+                      title: Text(
+                        "Matrícula: ${fine.licensePlate}",
+                        style: GoogleFonts.gabarito(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 20,
+                        ),
+                      ),
+                      subtitle: Text(
+                        "Tipo de infracción: ${fine.violationType}",
+                        style: GoogleFonts.gabarito(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16,
+                        ),
+                      ),
                     ),
                   ),
                 );

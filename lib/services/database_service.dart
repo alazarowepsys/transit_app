@@ -52,7 +52,8 @@ class DatabaseService {
 
   Future<int> insertFine(Fine newFine) async {
     Database db = await database;
-    return db.insert('fines', newFine.toMap());
+    int rowsAffected = await db.insert('fines', newFine.toMap());
+    return rowsAffected;
   }
 
   Future<List<Fine>> getFines() async {
